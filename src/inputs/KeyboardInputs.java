@@ -1,5 +1,7 @@
 package inputs;
 
+import static utils.Constants.Directions.*;
+
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -8,25 +10,25 @@ import main.GamePanel;
 public class KeyboardInputs implements KeyListener {
 
     private GamePanel panel;
-    public KeyboardInputs(GamePanel panel){
+
+    public KeyboardInputs(GamePanel panel) {
         this.panel = panel;
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
-        e.getKeyCode();
         switch (e.getKeyCode()) {
             case KeyEvent.VK_W:
-                panel.updateYDelta(-5);
+                panel.setDirection(UP);
                 break;
             case KeyEvent.VK_A:
-                panel.updateXDelta(-5);
+                panel.setDirection(LEFT);
                 break;
             case KeyEvent.VK_S:
-                panel.updateYDelta(5);
+                panel.setDirection(DOWN);
                 break;
             case KeyEvent.VK_D:
-                panel.updateXDelta(5);
+                panel.setDirection(RIGHT);
                 break;
             default:
                 break;
@@ -35,6 +37,14 @@ public class KeyboardInputs implements KeyListener {
 
     @Override
     public void keyReleased(KeyEvent e) {
+        switch (e.getKeyCode()) {
+            case KeyEvent.VK_W:
+            case KeyEvent.VK_A:
+            case KeyEvent.VK_S:
+            case KeyEvent.VK_D:
+                panel.setMoving(false);
+                break;
+        }
     }
 
     @Override

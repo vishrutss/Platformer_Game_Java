@@ -1,0 +1,45 @@
+package utils;
+
+public class Constants {
+
+    public static class Directions {
+        public static final int LEFT = 0;
+        public static final int UP = 1;
+        public static final int RIGHT = 2;
+        public static final int DOWN = 3;
+    }
+
+    public static class PlayerConstants {
+        public static final int ANIMATIONS_DIMENSION_X = 6, ANIMATIONS_DIMENSION_Y = 9;
+        public static final int IDLE = 0;
+        public static final int RUN = 1;
+        public static final int JUMP = 2;
+        public static final int FALL = 3;
+        public static final int FALL_GROUND = 4;
+        public static final int HURT = 5;
+        public static final int ATTACK = 6;
+        public static final int ATTACK_JUMP_1 = 7;
+        public static final int ATTACK_JUMP_2 = 8;
+
+        public static int GetAssetAmount(int playerAction) {
+            switch (playerAction) {
+                case RUN:
+                    return 6;
+                case IDLE:
+                    return 5;
+                case JUMP:
+                case ATTACK:
+                case ATTACK_JUMP_1:
+                case ATTACK_JUMP_2:
+                    return 3;
+                case HURT:
+                    return 4;
+                case FALL_GROUND:
+                    return 2;
+                case FALL:
+                default:
+                    return 1;
+            }
+        }
+    }
+}
