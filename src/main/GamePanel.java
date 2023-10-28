@@ -1,25 +1,44 @@
 package main;
 
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 import inputs.KeyboardInputs;
 import inputs.MouseInputs;
 
-import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class GamePanel extends JPanel {
 
     private MouseInputs mouseInputs;
     private float xDelta = 100, yDelta = 100;
-    private float xDirection = 0.5f, yDirection = 0.5f;
-    private Color color = new Color(123, 50, 250);
+    private BufferedImage image, subImage;
 
     public GamePanel() {
         mouseInputs = new MouseInputs(this);
         addKeyListener(new KeyboardInputs(this));
         addMouseListener(mouseInputs);
         addMouseMotionListener(mouseInputs);
+        setPanelSize();
+        importImage();
+    }
+
+    private void importImage() {
+
+        try {
+            image = ImageIO.read(new File("res/player.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void setPanelSize() {
+        Dimension dimension = new Dimension(1280, 800);
+        setPreferredSize(dimension);
     }
 
     public void setRectPosition(int x, int y) {
@@ -40,22 +59,8 @@ public class GamePanel extends JPanel {
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
+        subImage = image.getSubimage(64, 8 * 40, 64, 40);
+        g.drawImage(subImage, (int) xDelta, (int) yDelta, 128, 80, null);
 
-        updateRectangle();
-        g.setColor(color);
-        g.fillRect((int) xDelta, (int) yDelta, 50, 50);
-    }
-
-    private void updateRectangle() {
-        xDelta += xDirection;
-        yDelta += yDirection;
-        if (xDelta > getWidth() || xDelta < 0) {
-            xDirection *= -1;
-            color = new Color((int) (Math.random() * 0x1000000));
-        }
-        if (yDelta > getHeight() || yDelta < 0) {
-            yDirection *= -1;
-            color = new Color((int) (Math.random() * 0x1000000));
-        }
     }
 }
