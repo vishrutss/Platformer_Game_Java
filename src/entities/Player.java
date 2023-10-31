@@ -2,9 +2,9 @@ package entities;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import javax.imageio.ImageIO;
+
+import utils.LoadSave;
+
 import static utils.Constants.PlayerConstants.*;
 
 public class Player extends Entity {
@@ -16,8 +16,8 @@ public class Player extends Entity {
     private boolean left, right, up, down;
     private float playerSpeed = 5.0f;
 
-    public Player(float x, float y) {
-        super(x, y);
+    public Player(float x, float y, int width, int height) {
+        super(x, y, width, height);
         loadAnimations();
     }
 
@@ -28,7 +28,7 @@ public class Player extends Entity {
     }
 
     public void render(Graphics g) {
-        g.drawImage(animations[playerAction][animationIndex], (int) x, (int) y, 256, 160, null);
+        g.drawImage(animations[playerAction][animationIndex], (int) x, (int) y, width, height, null);
     }
 
     private void setAnimation() {
@@ -87,16 +87,12 @@ public class Player extends Entity {
     }
 
     private void loadAnimations() {
-        try {
-            BufferedImage image = ImageIO.read(new File("res/player.png"));
-            animations = new BufferedImage[ANIMATIONS_DIMENSION_Y][ANIMATIONS_DIMENSION_X];
-            for (int i = 0; i < animations.length; i++) {
-                for (int j = 0; j < animations[i].length; j++) {
-                    animations[i][j] = image.getSubimage(j * 64, i * 40, 64, 40);
-                }
+        BufferedImage image = LoadSave.getAsset(LoadSave.PLAYER_ASSET);
+        animations = new BufferedImage[ANIMATIONS_DIMENSION_Y][ANIMATIONS_DIMENSION_X];
+        for (int i = 0; i < animations.length; i++) {
+            for (int j = 0; j < animations[i].length; j++) {
+                animations[i][j] = image.getSubimage(j * 64, i * 40, 64, 40);
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
