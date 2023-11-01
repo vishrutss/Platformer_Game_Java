@@ -87,7 +87,7 @@ public class Player extends Entity {
     }
 
     private void loadAnimations() {
-        BufferedImage image = LoadSave.getAsset(LoadSave.PLAYER_ASSET);
+        BufferedImage image = LoadSave.GetAsset(LoadSave.PLAYER_ASSET);
         animations = new BufferedImage[ANIMATIONS_DIMENSION_Y][ANIMATIONS_DIMENSION_X];
         for (int i = 0; i < animations.length; i++) {
             for (int j = 0; j < animations[i].length; j++) {
