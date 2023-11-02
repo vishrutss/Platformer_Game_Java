@@ -10,12 +10,12 @@ public class Game implements Runnable {
     private GamePanel panel;
     private Thread gameThread;
     private final int FPS_LIMIT = 120;
-    private final int UPS_LIMIT = 90;
+    private final int UPS_LIMIT = 200;
     public static final int TILES_DEFAULT_SIZE = 32;
     public static final float SCALE = 1.5f;
     public static final int TILES_IN_WIDTH = 26;
     public static final int TILES_IN_HEIGHT = 14;
-    public static final int TILES_SIZE = TILES_DEFAULT_SIZE * (int) SCALE;
+    public static final int TILES_SIZE = (int) (TILES_DEFAULT_SIZE * SCALE);
     public static final int GAME_WIDTH = TILES_SIZE * TILES_IN_WIDTH;
     public static final int GAME_HEIGHT = TILES_SIZE * TILES_IN_HEIGHT;
 
@@ -23,6 +23,7 @@ public class Game implements Runnable {
     private LevelHandler levelHandler;
 
     public Game() {
+        System.out.println("Tiles size: " + TILES_SIZE);
         initClasses();
         panel = new GamePanel(this);
         window = new GameWindow(panel);

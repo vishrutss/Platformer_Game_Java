@@ -23,8 +23,8 @@ public class LevelHandler {
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 12; j++) {
                 int index = i * 12 + j;
-                levelAsset[index] = image.getSubimage(j * Game.TILES_SIZE, i * Game.TILES_SIZE, Game.TILES_SIZE,
-                        Game.TILES_SIZE);
+                levelAsset[index] = image.getSubimage(j * 32, i * 32, 32,
+                        32);
             }
         }
     }

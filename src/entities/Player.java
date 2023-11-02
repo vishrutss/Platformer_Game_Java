@@ -6,6 +6,7 @@ import java.awt.image.BufferedImage;
 import utils.LoadSave;
 
 import static utils.Constants.PlayerConstants.*;
+import static utils.HelperMethods.CanMoveHere;
 
 public class Player extends Entity {
 
@@ -72,19 +73,27 @@ public class Player extends Entity {
 
         moving = false;
 
+        if (!left && !right && !up && !down) {
+            return;
+        }
+
+        float xSpeed = 0, ySpeed = 0;
+
         if (left && !right) {
-            x -= playerSpeed;
-            moving = true;
+            xSpeed = -playerSpeed;
         } else if (right && !left) {
-            x += playerSpeed;
-            moving = true;
+            xSpeed = playerSpeed;
         }
 
         if (up && !down) {
-            y -= playerSpeed;
-            moving = true;
+            ySpeed = -playerSpeed;
         } else if (down && !up) {
-            y += playerSpeed;
+            ySpeed = playerSpeed;
+        }
+
+        if (CanMoveHere(x + xSpeed, y + ySpeed, width, height, levelData)) {
+            this.x += xSpeed;
+            this.y += ySpeed;
             moving = true;
         }
     }
