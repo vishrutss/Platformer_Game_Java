@@ -3,6 +3,7 @@ package entities;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
+import main.Game;
 import utils.LoadSave;
 
 import static utils.Constants.PlayerConstants.*;
@@ -17,21 +18,23 @@ public class Player extends Entity {
     private boolean left, right, up, down;
     private float playerSpeed = 5.0f;
     private int[][] levelData;
+    private float xDrawOffset = 21 * Game.SCALE, yDrawOffset = 4 * Game.SCALE;
 
     public Player(float x, float y, int width, int height) {
         super(x, y, width, height);
         loadAnimations();
+        initHitbox(x, y, 20 * Game.SCALE, 28 * Game.SCALE);
     }
 
     public void update() {
         updatePosition();
-        updateHitbox();
         updateAnimationTick();
         setAnimation();
     }
 
     public void render(Graphics g) {
-        g.drawImage(animations[playerAction][animationIndex], (int) x, (int) y, width, height, null);
+        g.drawImage(animations[playerAction][animationIndex], (int) (hitbox.x - xDrawOffset),
+                (int) (hitbox.y - yDrawOffset), width, height, null);
         drawHitbox(g);
     }
 
@@ -91,9 +94,9 @@ public class Player extends Entity {
             ySpeed = playerSpeed;
         }
 
-        if (CanMoveHere(x + xSpeed, y + ySpeed, width, height, levelData)) {
-            this.x += xSpeed;
-            this.y += ySpeed;
+        if (CanMoveHere(hitbox.x + xSpeed, hitbox.y + ySpeed, hitbox.width, hitbox.height, levelData)) {
+            hitbox.x += xSpeed;
+            hitbox.y += ySpeed;
             moving = true;
         }
     }

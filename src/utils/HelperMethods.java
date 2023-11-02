@@ -3,7 +3,7 @@ package utils;
 import main.Game;
 
 public class HelperMethods {
-    public static boolean CanMoveHere(float x, float y, int width, int height, int[][] levelData) {
+    public static boolean CanMoveHere(float x, float y, float width, float height, int[][] levelData) {
         if (IsSolid(x, y, levelData)) {
             return false;
         }
