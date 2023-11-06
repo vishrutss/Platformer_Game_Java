@@ -10,7 +10,7 @@ public class Game implements Runnable {
     private GamePanel panel;
     private Thread gameThread;
     private final int FPS_LIMIT = 120;
-    private final int UPS_LIMIT = 90;
+    private final int UPS_LIMIT = 100;
     public static final int TILES_DEFAULT_SIZE = 32;
     public static final float SCALE = 1.5f;
     public static final int TILES_IN_WIDTH = 26;
