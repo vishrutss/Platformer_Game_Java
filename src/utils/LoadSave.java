@@ -13,6 +13,7 @@ public class LoadSave {
     public static final String LEVEL_ASSET = "level_outside.png";
     public static final String LEVEL_ONE_DATA = "level_one_data.png";
     public static final String MENU_BUTTONS = "menu_buttons.png";
+    public static final String MENU_BACKGROUND = "menu_background.png";
 
     public static BufferedImage GetAsset(String fileName) {
         BufferedImage image = null;
