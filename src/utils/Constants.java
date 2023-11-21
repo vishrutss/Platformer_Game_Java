@@ -16,6 +16,11 @@ public class Constants {
             public static final int SOUND_BTN_SIZE_DEFAULT = 42;
             public static final int SOUND_BTN_SIZE = (int) (SOUND_BTN_SIZE_DEFAULT * Game.SCALE);
         }
+
+        public static class UrmButtons {
+            public static final int URM_BTN_SIZE_DEFAULT = 56;
+            public static final int URM_BTN_SIZE = (int) (URM_BTN_SIZE_DEFAULT * Game.SCALE);
+        }
     }
 
     public static class Directions {
