@@ -21,6 +21,16 @@ public class Constants {
             public static final int URM_BTN_SIZE_DEFAULT = 56;
             public static final int URM_BTN_SIZE = (int) (URM_BTN_SIZE_DEFAULT * Game.SCALE);
         }
+
+        public static class VolumeButtons {
+            public static final int VOLUME_BTN_WIDTH_DEFAULT = 28;
+            public static final int VOLUME_BTN_HEIGHT_DEFAULT = 44;
+            public static final int VOLUME_SLIDER_WIDTH_DEFAULT = 215;
+
+            public static final int VOLUME_BTN_WIDTH = (int) (VOLUME_BTN_WIDTH_DEFAULT * Game.SCALE);
+            public static final int VOLUME_BTN_HEIGHT = (int) (VOLUME_BTN_HEIGHT_DEFAULT * Game.SCALE);
+            public static final int VOLUME_SLIDER_WIDTH = (int) (VOLUME_SLIDER_WIDTH_DEFAULT * Game.SCALE);
+        }
     }
 
     public static class Directions {

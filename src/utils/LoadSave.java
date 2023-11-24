@@ -18,6 +18,7 @@ public class LoadSave {
     public static final String SOUND_BUTTONS = "sound_button.png";
     // Unpause, Restart, Main Menu
     public static final String URM_BUTTONS = "urm_buttons.png";
+    public static final String VOLUME_BTNS = "volume_buttons.png";
 
     public static BufferedImage GetAsset(String fileName) {
         BufferedImage image = null;
