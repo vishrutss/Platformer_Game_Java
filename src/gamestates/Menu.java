@@ -12,13 +12,14 @@ import utils.LoadSave;
 public class Menu extends State implements StateMethods {
 
     private MenuButton[] menuButtons = new MenuButton[3];
-    private BufferedImage background;
+    private BufferedImage background, screenBackground;
     private int menuX, menuY, menuWidth, menuHeight;
 
     public Menu(Game game) {
         super(game);
         loadButtons();
         loadBackground();
+        screenBackground = LoadSave.GetAsset(LoadSave.MENU_SCREEN_BACKGROUND);
     }
 
     private void loadBackground() {
@@ -44,6 +45,7 @@ public class Menu extends State implements StateMethods {
 
     @Override
     public void draw(Graphics g) {
+        g.drawImage(screenBackground, 0, 0, Game.GAME_WIDTH, Game.GAME_HEIGHT, null);
         g.drawImage(background, menuX, menuY, menuWidth, menuHeight, null);
         for (MenuButton button : menuButtons) {
             button.draw(g);

@@ -19,6 +19,7 @@ public class LoadSave {
     // Unpause, Restart, Main Menu
     public static final String URM_BUTTONS = "urm_buttons.png";
     public static final String VOLUME_BTNS = "volume_buttons.png";
+    public static final String MENU_SCREEN_BACKGROUND = "Forest_Landscape.jpg";
 
     public static BufferedImage GetAsset(String fileName) {
         BufferedImage image = null;
