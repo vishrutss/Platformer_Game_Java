@@ -92,8 +92,10 @@ public class Player extends Entity {
             jump();
         }
 
-        if (!left && !right && !inAir) {
-            return;
+        if (!inAir) {
+            if ((!left && !right) || (left && right)) {
+                return;
+            }
         }
 
         float xSpeed = 0;
