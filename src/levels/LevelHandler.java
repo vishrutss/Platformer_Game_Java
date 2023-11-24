@@ -29,11 +29,11 @@ public class LevelHandler {
         }
     }
 
-    public void draw(Graphics g) {
+    public void draw(Graphics g, int levelOffset) {
         for (int i = 0; i < Game.TILES_IN_HEIGHT; i++) {
-            for (int j = 0; j < Game.TILES_IN_WIDTH; j++) {
+            for (int j = 0; j < levelOne.getLevelData()[0].length; j++) {
                 int index = levelOne.getAssetIndex(j, i);
-                g.drawImage(levelAsset[index], Game.TILES_SIZE * j, Game.TILES_SIZE * i, Game.TILES_SIZE,
+                g.drawImage(levelAsset[index], Game.TILES_SIZE * j - levelOffset, Game.TILES_SIZE * i, Game.TILES_SIZE,
                         Game.TILES_SIZE, null);
             }
         }

@@ -8,12 +8,18 @@ import entities.Player;
 import levels.LevelHandler;
 import main.Game;
 import ui.PauseOverlay;
+import utils.LoadSave;
 
 public class Playing extends State implements StateMethods {
     private Player player;
     private LevelHandler levelHandler;
     private PauseOverlay pauseOverlay;
     private boolean paused = false;
+    private int xLevelOffset;
+    private int leftBorder = (int) (Game.GAME_WIDTH * 0.2), rightBorder = (int) (Game.GAME_WIDTH * 0.8);
+    private int levelTilesWide = LoadSave.GetLevelData()[0].length;
+    private int maxTilesOffset = levelTilesWide - Game.TILES_IN_WIDTH;
+    private int maxLevelOffsetX = maxTilesOffset * Game.TILES_SIZE;
 
     public Playing(Game game) {
         super(game);
@@ -32,15 +38,31 @@ public class Playing extends State implements StateMethods {
         if (!paused) {
             levelHandler.update();
             player.update();
+            checkCloseToBorder();
         } else {
             pauseOverlay.update();
         }
     }
 
+    private void checkCloseToBorder() {
+        int playerX = (int) player.getHitbox().x;
+        int diff = playerX - xLevelOffset;
+        if (diff > rightBorder) {
+            xLevelOffset += diff - rightBorder;
+        } else if (diff < leftBorder) {
+            xLevelOffset += diff - leftBorder;
+        }
+        if (xLevelOffset > maxLevelOffsetX) {
+            xLevelOffset = maxLevelOffsetX;
+        } else if (xLevelOffset < 0) {
+            xLevelOffset = 0;
+        }
+    }
+
     @Override
     public void draw(Graphics g) {
-        levelHandler.draw(g);
-        player.render(g);
+        levelHandler.draw(g, xLevelOffset);
+        player.render(g, xLevelOffset);
         if (paused)
             pauseOverlay.draw(g);
     }

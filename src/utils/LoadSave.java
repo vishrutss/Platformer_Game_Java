@@ -11,7 +11,7 @@ import main.Game;
 public class LoadSave {
     public static final String PLAYER_ASSET = "player.png";
     public static final String LEVEL_ASSET = "level_outside.png";
-    public static final String LEVEL_ONE_DATA = "level_one_data.png";
+    public static final String LEVEL_ONE_DATA = "level_one_data_long.png";
     public static final String MENU_BUTTONS = "menu_buttons.png";
     public static final String MENU_BACKGROUND = "menu_background.png";
     public static final String PAUSE_BACKGROUND = "pause_menu.png";
@@ -31,8 +31,8 @@ public class LoadSave {
     }
 
     public static int[][] GetLevelData() {
-        int[][] levelData = new int[Game.TILES_IN_HEIGHT][Game.TILES_IN_WIDTH];
         BufferedImage image = GetAsset(LEVEL_ONE_DATA);
+        int[][] levelData = new int[image.getHeight()][image.getWidth()];
         for (int i = 0; i < image.getHeight(); i++) {
             for (int j = 0; j < image.getWidth(); j++) {
                 Color color = new Color(image.getRGB(j, i));
