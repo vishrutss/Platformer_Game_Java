@@ -88,11 +88,13 @@ public class Playing extends State implements StateMethods {
 
     private void drawClouds(Graphics g) {
         for (int i = 0; i < 3; i++) {
-            g.drawImage(bg_clouds, 0 + i * BIG_CLOUD_WIDTH, (int) (204 * Game.SCALE), BIG_CLOUD_WIDTH, BIG_CLOUD_HEIGHT,
+            g.drawImage(bg_clouds, 0 + i * BIG_CLOUD_WIDTH - (int) (xLevelOffset * 0.3), (int) (204 * Game.SCALE),
+                    BIG_CLOUD_WIDTH, BIG_CLOUD_HEIGHT,
                     null);
         }
         for (int i = 0; i < small_clouds_pos.length; i++) {
-            g.drawImage(bg_small_clouds, SMALL_CLOUD_WIDTH * 4 * i, small_clouds_pos[i], SMALL_CLOUD_WIDTH,
+            g.drawImage(bg_small_clouds, SMALL_CLOUD_WIDTH * 4 * i - (int) (xLevelOffset * 0.4), small_clouds_pos[i],
+                    SMALL_CLOUD_WIDTH,
                     SMALL_CLOUD_HEIGHT, null);
         }
     }
