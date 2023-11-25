@@ -6,8 +6,6 @@ import java.io.IOException;
 import java.awt.Color;
 import javax.imageio.ImageIO;
 
-import main.Game;
-
 public class LoadSave {
     public static final String PLAYER_ASSET = "player.png";
     public static final String LEVEL_ASSET = "level_outside.png";
@@ -20,6 +18,9 @@ public class LoadSave {
     public static final String URM_BUTTONS = "urm_buttons.png";
     public static final String VOLUME_BTNS = "volume_buttons.png";
     public static final String MENU_SCREEN_BACKGROUND = "Forest_Landscape.jpg";
+    public static final String GAME_BACKGROUND = "game_background.png";
+    public static final String GAME_BG_CLOUDS = "big_clouds.png";
+    public static final String GAME_BG_SMALL_CLOUDS = "small_clouds.png";
 
     public static BufferedImage GetAsset(String fileName) {
         BufferedImage image = null;

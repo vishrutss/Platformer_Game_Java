@@ -4,12 +4,15 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+import java.util.Random;
 
 import entities.Player;
 import levels.LevelHandler;
 import main.Game;
 import ui.PauseOverlay;
 import utils.LoadSave;
+import static utils.Constants.Environment.*;
 
 public class Playing extends State implements StateMethods {
     private Player player;
@@ -21,10 +24,20 @@ public class Playing extends State implements StateMethods {
     private int levelTilesWide = LoadSave.GetLevelData()[0].length;
     private int maxTilesOffset = levelTilesWide - Game.TILES_IN_WIDTH;
     private int maxLevelOffsetX = maxTilesOffset * Game.TILES_SIZE;
+    private BufferedImage background, bg_clouds, bg_small_clouds;
+    private int[] small_clouds_pos;
+    private Random random = new Random();
 
     public Playing(Game game) {
         super(game);
         initClasses();
+        background = LoadSave.GetAsset(LoadSave.GAME_BACKGROUND);
+        bg_clouds = LoadSave.GetAsset(LoadSave.GAME_BG_CLOUDS);
+        bg_small_clouds = LoadSave.GetAsset(LoadSave.GAME_BG_SMALL_CLOUDS);
+        small_clouds_pos = new int[8];
+        for (int i = 0; i < small_clouds_pos.length; i++) {
+            small_clouds_pos[i] = (int) (90 * Game.SCALE) + random.nextInt((int) (100 * Game.SCALE));
+        }
     }
 
     private void initClasses() {
@@ -62,12 +75,25 @@ public class Playing extends State implements StateMethods {
 
     @Override
     public void draw(Graphics g) {
+        g.drawImage(background, 0, 0, Game.GAME_WIDTH, Game.GAME_HEIGHT, null);
+        drawClouds(g);
         levelHandler.draw(g, xLevelOffset);
         player.render(g, xLevelOffset);
         if (paused) {
             g.setColor(new Color(0, 0, 0, 150));
             g.fillRect(0, 0, Game.GAME_WIDTH, Game.GAME_HEIGHT);
             pauseOverlay.draw(g);
+        }
+    }
+
+    private void drawClouds(Graphics g) {
+        for (int i = 0; i < 3; i++) {
+            g.drawImage(bg_clouds, 0 + i * BIG_CLOUD_WIDTH, (int) (204 * Game.SCALE), BIG_CLOUD_WIDTH, BIG_CLOUD_HEIGHT,
+                    null);
+        }
+        for (int i = 0; i < small_clouds_pos.length; i++) {
+            g.drawImage(bg_small_clouds, SMALL_CLOUD_WIDTH * 4 * i, small_clouds_pos[i], SMALL_CLOUD_WIDTH,
+                    SMALL_CLOUD_HEIGHT, null);
         }
     }
 
