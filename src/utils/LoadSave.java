@@ -21,6 +21,7 @@ public class LoadSave {
     public static final String GAME_BACKGROUND = "game_background.png";
     public static final String GAME_BG_CLOUDS = "big_clouds.png";
     public static final String GAME_BG_SMALL_CLOUDS = "small_clouds.png";
+    public static final String ENEMY_CRAB = "enemy_crab.png";
 
     public static BufferedImage GetAsset(String fileName) {
         BufferedImage image = null;

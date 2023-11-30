@@ -4,6 +4,41 @@ import main.Game;
 
 public class Constants {
 
+    public static class Enemy {
+        public static final int CRAB = 0;
+
+        public static final int IDLE = 0;
+        public static final int RUN = 1;
+        public static final int ATTACK = 2;
+        public static final int HURT = 3;
+        public static final int DEAD = 4;
+
+        public static final int CRAB_DEFAULT_WIDTH = 64;
+        public static final int CRAB_DEFAULT_HEIGHT = 32;
+        public static final int CRAB_WIDTH = (int) (CRAB_DEFAULT_WIDTH * Game.SCALE);
+        public static final int CRAB_HEIGHT = (int) (CRAB_DEFAULT_HEIGHT * Game.SCALE);
+
+        public static int GetAssetAmount(int enemyType, int enemyState) {
+            switch (enemyType) {
+                case CRAB:
+                    switch (enemyState) {
+                        case IDLE:
+                            return 9;
+                        case RUN:
+                            return 6;
+                        case ATTACK:
+                            return 7;
+                        case HURT:
+                            return 4;
+                        case DEAD:
+                            return 5;
+                    }
+                default:
+                    return 0;
+            }
+        }
+    }
+
     public static class Environment {
         public static final int BIG_CLOUD_DEFAULT_WIDTH = 448;
         public static final int BIG_CLOUD_DEFAULT_HEIGHT = 101;
