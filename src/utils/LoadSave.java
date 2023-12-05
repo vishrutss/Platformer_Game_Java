@@ -3,8 +3,15 @@ package utils;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+
+import static utils.Constants.Enemy.CRAB;
+
 import java.awt.Color;
 import javax.imageio.ImageIO;
+
+import entities.Crab;
+import main.Game;
 
 public class LoadSave {
     public static final String PLAYER_ASSET = "player.png";
@@ -31,6 +38,21 @@ public class LoadSave {
             e.printStackTrace();
         }
         return image;
+    }
+
+    public static ArrayList<Crab> GetCrabs() {
+        BufferedImage image = GetAsset(LEVEL_ONE_DATA);
+        ArrayList<Crab> crabs = new ArrayList<>();
+        for (int i = 0; i < image.getHeight(); i++) {
+            for (int j = 0; j < image.getWidth(); j++) {
+                Color color = new Color(image.getRGB(j, i));
+                int value = color.getGreen();
+                if (value == CRAB) {
+                    crabs.add(new Crab(j * Game.TILES_SIZE, i * Game.TILES_SIZE));
+                }
+            }
+        }
+        return crabs;
     }
 
     public static int[][] GetLevelData() {

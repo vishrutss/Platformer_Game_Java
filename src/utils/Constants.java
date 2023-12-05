@@ -13,7 +13,7 @@ public class Constants {
         public static final int HURT = 3;
         public static final int DEAD = 4;
 
-        public static final int CRAB_DEFAULT_WIDTH = 64;
+        public static final int CRAB_DEFAULT_WIDTH = 72;
         public static final int CRAB_DEFAULT_HEIGHT = 32;
         public static final int CRAB_WIDTH = (int) (CRAB_DEFAULT_WIDTH * Game.SCALE);
         public static final int CRAB_HEIGHT = (int) (CRAB_DEFAULT_HEIGHT * Game.SCALE);
@@ -33,9 +33,8 @@ public class Constants {
                         case DEAD:
                             return 5;
                     }
-                default:
-                    return 0;
             }
+            return 0;
         }
     }
 
