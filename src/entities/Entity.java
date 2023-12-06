@@ -16,10 +16,10 @@ public abstract class Entity {
         this.height = height;
     }
 
-    protected void drawHitbox(Graphics g) {
+    protected void drawHitbox(Graphics g, int xLevelOffset) {
         // Debugging hitbox purposes
         g.setColor(Color.RED);
-        g.drawRect((int) hitbox.x, (int) hitbox.y, (int) hitbox.width, (int) hitbox.height);
+        g.drawRect((int) hitbox.x - xLevelOffset, (int) hitbox.y, (int) hitbox.width, (int) hitbox.height);
     }
 
     protected void initHitbox(float x, float y, int width, int height) {
