@@ -18,6 +18,9 @@ public class Constants {
         public static final int CRAB_WIDTH = (int) (CRAB_DEFAULT_WIDTH * Game.SCALE);
         public static final int CRAB_HEIGHT = (int) (CRAB_DEFAULT_HEIGHT * Game.SCALE);
 
+        public static final int CRAB_OFFSET_X = (int) (26 * Game.SCALE);
+        public static final int CRAB_OFFSET_Y = (int) (9 * Game.SCALE);
+
         public static int GetAssetAmount(int enemyType, int enemyState) {
             switch (enemyType) {
                 case CRAB:
