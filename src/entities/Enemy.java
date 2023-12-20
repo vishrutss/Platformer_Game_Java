@@ -15,6 +15,8 @@ public abstract class Enemy extends Entity {
     protected float gravity = 0.04f * Game.SCALE;
     protected float walkSpeed = 0.45f * Game.SCALE;
     protected int walkDirection = LEFT;
+    protected int tileY;
+    protected float attackRange = Game.TILES_SIZE;
 
     public Enemy(float x, float y, int width, int height, int enemyType) {
         super(x, y, width, height);
@@ -26,6 +28,19 @@ public abstract class Enemy extends Entity {
         this.enemyState = enemyState;
         animationTick = 0;
         animationIndex = 0;
+    }
+
+    protected boolean canSeePlayer(int[][] levelData, Player player) {
+        int playerTileY = (int) (player.getHitbox().y / Game.TILES_SIZE);
+        if (playerTileY == tileY && isPlayerInRange(player) && IsSightClear(levelData, hitbox, player.hitbox, tileY)) {
+            return true;
+        }
+        return false;
+    }
+
+    private boolean isPlayerInRange(Player player) {
+        int absRange = (int) (Math.abs(player.hitbox.x - hitbox.x));
+        return absRange <= attackRange * 5;
     }
 
     protected void updateAnimationTick() {
@@ -53,6 +68,7 @@ public abstract class Enemy extends Entity {
         } else {
             inAir = false;
             hitbox.y = GetEntityYPositionUnderRoofAboveFloor(hitbox, fallSpeed);
+            tileY = (int) (hitbox.y / Game.TILES_SIZE);
         }
     }
 
@@ -64,7 +80,7 @@ public abstract class Enemy extends Entity {
             xSpeed = walkSpeed;
         }
         if (CanMoveHere(hitbox.x + xSpeed, hitbox.y, hitbox.width, hitbox.height, levelData)) {
-            if (isFloor(hitbox, xSpeed, levelData)) {
+            if (IsFloor(hitbox, xSpeed, levelData)) {
                 hitbox.x += xSpeed;
                 return;
             }
