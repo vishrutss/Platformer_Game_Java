@@ -25,6 +25,15 @@ public class Player extends Entity {
     private float fallSpeedAfterCollision = 0.5f * Game.SCALE;
     private boolean inAir = false;
 
+    // Status bar UI
+    private BufferedImage healthPowerBarImg;
+
+    private int statusBarWidth = (int) (192 * Game.SCALE), statusBarHeight = (int) (58 * Game.SCALE);
+    private int statusBarX = (int) (10 * Game.SCALE), statusBarY = (int) (10 * Game.SCALE);
+
+    private int healthBarWidth = (int) (150 * Game.SCALE), healthBarHeight = (int) (4 * Game.SCALE);
+    private int healthBarXStart = (int) (34 * Game.SCALE), healthBarYStart = (int) (14 * Game.SCALE);
+
     public Player(float x, float y, int width, int height) {
         super(x, y, width, height);
         loadAnimations();
@@ -40,6 +49,11 @@ public class Player extends Entity {
     public void render(Graphics g, int levelOffset) {
         g.drawImage(animations[playerAction][animationIndex], (int) (hitbox.x - xDrawOffset) - levelOffset,
                 (int) (hitbox.y - yDrawOffset), width, height, null);
+        drawUI(g);
+    }
+
+    private void drawUI(Graphics g) {
+        g.drawImage(healthPowerBarImg, statusBarX, statusBarY, statusBarWidth, statusBarHeight, null);
     }
 
     private void setAnimation() {
@@ -162,6 +176,7 @@ public class Player extends Entity {
                 animations[i][j] = image.getSubimage(j * 64, i * 40, 64, 40);
             }
         }
+        healthPowerBarImg = LoadSave.GetAsset(LoadSave.HEALTH_POWER_BAR);
     }
 
     public void loadLevelData(int[][] levelData) {
