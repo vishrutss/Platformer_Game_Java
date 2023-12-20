@@ -1,6 +1,7 @@
 package entities;
 
 import static utils.Constants.Enemy.*;
+import static utils.HelperMethods.*;
 import static utils.Constants.Directions.*;
 
 import main.Game;
@@ -30,6 +31,39 @@ public abstract class Enemy extends Entity {
                 animationIndex = 0;
             }
         }
+    }
+
+    protected void firstUpdateCheck(int[][] levelData) {
+        if (!IsEntitiyOnGround(hitbox, levelData)) {
+            inAir = true;
+        }
+        firstUpdate = false;
+    }
+
+    protected void updateInAir(int[][] levelData) {
+        if (CanMoveHere(hitbox.x, hitbox.y + fallSpeed, hitbox.width, hitbox.height, levelData)) {
+            hitbox.y += fallSpeed;
+            fallSpeed += gravity;
+        } else {
+            inAir = false;
+            hitbox.y = GetEntityYPositionUnderRoofAboveFloor(hitbox, fallSpeed);
+        }
+    }
+
+    protected void movePlayer(int[][] levelData) {
+        float xSpeed = 0;
+        if (walkDirection == LEFT) {
+            xSpeed = -walkSpeed;
+        } else {
+            xSpeed = walkSpeed;
+        }
+        if (CanMoveHere(hitbox.x + xSpeed, hitbox.y, hitbox.width, hitbox.height, levelData)) {
+            if (isFloor(hitbox, xSpeed, levelData)) {
+                hitbox.x += xSpeed;
+                return;
+            }
+        }
+        walkDirection = walkDirection == LEFT ? RIGHT : LEFT;
     }
 
     public int getAnimationIndex() {
