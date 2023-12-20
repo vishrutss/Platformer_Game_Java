@@ -38,6 +38,14 @@ public abstract class Enemy extends Entity {
         return false;
     }
 
+    protected void turnToPlayer(Player player) {
+        if (player.hitbox.x < hitbox.x) {
+            walkDirection = LEFT;
+        } else {
+            walkDirection = RIGHT;
+        }
+    }
+
     private boolean isPlayerInRange(Player player) {
         int absRange = (int) (Math.abs(player.hitbox.x - hitbox.x));
         return absRange <= attackRange * 5;
