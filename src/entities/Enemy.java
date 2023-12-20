@@ -22,6 +22,12 @@ public abstract class Enemy extends Entity {
         initHitbox(x, y, width, height);
     }
 
+    protected void newState(int enemyState) {
+        this.enemyState = enemyState;
+        animationTick = 0;
+        animationIndex = 0;
+    }
+
     protected void updateAnimationTick() {
         animationTick++;
         if (animationTick >= animationSpeed) {

@@ -25,7 +25,7 @@ public class Crab extends Enemy {
         } else {
             switch (enemyState) {
                 case IDLE:
-                    enemyState = RUN;
+                    newState(RUN);
                     break;
                 case RUN:
                     movePlayer(levelData);
