@@ -83,6 +83,9 @@ public class HelperMethods {
             if (IsTileSolid(xStart + i, y, levelData)) {
                 return false;
             }
+            if(!IsTileSolid(xStart + i, y + 1, levelData)) {
+                return false;
+            }
         }
         return true;
     }
