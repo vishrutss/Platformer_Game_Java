@@ -8,12 +8,12 @@ import main.Game;
 
 public abstract class Enemy extends Entity {
     protected int animationIndex, enemyState, enemyType;
-    protected int animationTick, animationSpeed = 25;
+    protected int animationTick, animationSpeed = 15;
     protected boolean firstUpdate = true;
     protected boolean inAir;
     protected float fallSpeed;
     protected float gravity = 0.04f * Game.SCALE;
-    protected float walkSpeed = 0.45f * Game.SCALE;
+    protected float walkSpeed = 0.5f * Game.SCALE;
     protected int walkDirection = LEFT;
     protected int tileY;
     protected float attackRange = Game.TILES_SIZE;
@@ -46,9 +46,14 @@ public abstract class Enemy extends Entity {
         }
     }
 
-    private boolean isPlayerInRange(Player player) {
-        int absRange = (int) (Math.abs(player.hitbox.x - hitbox.x));
+    protected boolean isPlayerInRange(Player player) {
+        int absRange = (int) Math.abs(player.hitbox.x - hitbox.x);
         return absRange <= attackRange * 5;
+    }
+
+    protected boolean isPlayerInAttackRange(Player player) {
+        int absRange = (int) Math.abs(player.hitbox.x - hitbox.x);
+        return absRange <= attackRange;
     }
 
     protected void updateAnimationTick() {
@@ -58,6 +63,9 @@ public abstract class Enemy extends Entity {
             animationIndex++;
             if (animationIndex >= GetAssetAmount(enemyType, enemyState)) {
                 animationIndex = 0;
+                if (enemyState == ATTACK) {
+                    enemyState = IDLE;
+                }
             }
         }
     }
