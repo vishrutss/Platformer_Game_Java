@@ -2,6 +2,7 @@ package entities;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 
 import main.Game;
@@ -37,17 +38,35 @@ public class Player extends Entity {
 
     private int maxHealth = 100, currentHealth = maxHealth, healthWidth = healthBarWidth;
 
+    // Attack hitbox
+    private Rectangle2D.Float attackHitbox;
+
     public Player(float x, float y, int width, int height) {
         super(x, y, width, height);
         loadAnimations();
         initHitbox(x, y, (int) (20 * Game.SCALE), (int) (28 * Game.SCALE));
+        initAttackHitbox();
+    }
+
+    private void initAttackHitbox() {
+        attackHitbox = new Rectangle2D.Float(x, y, (int) (20 * Game.SCALE), (int) (20 * Game.SCALE));
     }
 
     public void update() {
         updateHealthBar();
+        updateAttackHitbox();
         updatePosition();
         updateAnimationTick();
         setAnimation();
+    }
+
+    private void updateAttackHitbox() {
+        if (right) {
+            attackHitbox.x = hitbox.x + hitbox.width + (int) (Game.SCALE * 10);
+        } else if (left) {
+            attackHitbox.x = hitbox.x - hitbox.width - (int) (Game.SCALE * 10);
+        }
+        attackHitbox.y = hitbox.y + (int) (Game.SCALE * 10);
     }
 
     private void updateHealthBar() {
@@ -57,7 +76,14 @@ public class Player extends Entity {
     public void render(Graphics g, int levelOffset) {
         g.drawImage(animations[playerAction][animationIndex], (int) (hitbox.x - xDrawOffset) - levelOffset,
                 (int) (hitbox.y - yDrawOffset), width, height, null);
+        drawAttackHitbox(g, levelOffset);
         drawUI(g);
+    }
+
+    private void drawAttackHitbox(Graphics g, int levelOffset) {
+        g.setColor(Color.RED);
+        g.drawRect((int) (attackHitbox.x - levelOffset), (int) attackHitbox.y, (int) attackHitbox.width,
+                (int) attackHitbox.height);
     }
 
     private void drawUI(Graphics g) {
@@ -168,6 +194,16 @@ public class Player extends Entity {
     private void resetInAir() {
         inAir = false;
         airSpeed = 0;
+    }
+
+    public void changeHealth(int amount) {
+        currentHealth += amount;
+        if (currentHealth > maxHealth) {
+            currentHealth = maxHealth;
+        }
+        if (currentHealth < 0) {
+            currentHealth = 0;
+        }
     }
 
     private void updateXPosition(float xSpeed) {
