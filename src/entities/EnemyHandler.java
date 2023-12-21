@@ -38,8 +38,8 @@ public class EnemyHandler {
     private void drawCrabs(Graphics g, int xLevelOffset) {
         for (Crab crab : crabs) {
             g.drawImage(crabImages[crab.getEnemyState()][crab.getAnimationIndex()],
-                    (int) crab.getHitbox().x - xLevelOffset - CRAB_OFFSET_X,
-                    (int) crab.getHitbox().y - CRAB_OFFSET_Y, CRAB_WIDTH, CRAB_HEIGHT, null);
+                    (int) crab.getHitbox().x - xLevelOffset - CRAB_OFFSET_X + crab.flipx(),
+                    (int) crab.getHitbox().y - CRAB_OFFSET_Y, CRAB_WIDTH * crab.flipw(), CRAB_HEIGHT, null);
         }
     }
 

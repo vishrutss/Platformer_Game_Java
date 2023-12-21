@@ -1,6 +1,7 @@
 package entities;
 
 import static utils.Constants.Enemy.*;
+import static utils.Constants.Directions.*;
 
 import main.Game;
 
@@ -35,6 +36,22 @@ public class Crab extends Enemy {
                     movePlayer(levelData);
                     break;
             }
+        }
+    }
+
+    public int flipx() {
+        if(walkDirection==RIGHT) {
+            return width;
+        } else {
+            return 0;
+        }
+    }
+
+    public int flipw() {
+        if(walkDirection==RIGHT) {
+            return -1;
+        } else {
+            return 1;
         }
     }
 
