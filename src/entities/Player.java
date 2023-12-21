@@ -1,5 +1,6 @@
 package entities;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
@@ -34,6 +35,8 @@ public class Player extends Entity {
     private int healthBarWidth = (int) (150 * Game.SCALE), healthBarHeight = (int) (4 * Game.SCALE);
     private int healthBarXStart = (int) (34 * Game.SCALE), healthBarYStart = (int) (14 * Game.SCALE);
 
+    private int maxHealth = 100, currentHealth = maxHealth, healthWidth = healthBarWidth;
+
     public Player(float x, float y, int width, int height) {
         super(x, y, width, height);
         loadAnimations();
@@ -41,9 +44,14 @@ public class Player extends Entity {
     }
 
     public void update() {
+        updateHealthBar();
         updatePosition();
         updateAnimationTick();
         setAnimation();
+    }
+
+    private void updateHealthBar() {
+        healthWidth = (int) ((currentHealth / (float) maxHealth) * healthBarWidth);
     }
 
     public void render(Graphics g, int levelOffset) {
@@ -54,6 +62,8 @@ public class Player extends Entity {
 
     private void drawUI(Graphics g) {
         g.drawImage(healthPowerBarImg, statusBarX, statusBarY, statusBarWidth, statusBarHeight, null);
+        g.setColor(Color.RED);
+        g.fillRect(healthBarXStart + statusBarX, healthBarYStart + statusBarY, healthWidth, healthBarHeight);
     }
 
     private void setAnimation() {
