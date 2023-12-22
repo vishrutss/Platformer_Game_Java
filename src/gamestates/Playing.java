@@ -104,6 +104,10 @@ public class Playing extends State implements StateMethods {
         }
     }
 
+    public void resetAll() {
+        //initClasses();
+    }
+
     @Override
     public void mouseClicked(MouseEvent e) {
         if (e.getButton() == MouseEvent.BUTTON1) {
