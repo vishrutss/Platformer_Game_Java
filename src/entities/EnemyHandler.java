@@ -3,6 +3,7 @@ package entities;
 import static utils.Constants.Enemy.*;
 
 import java.awt.Graphics;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
@@ -27,7 +28,8 @@ public class EnemyHandler {
 
     public void update(int[][] levelData, Player player) {
         for (Crab crab : crabs) {
-            crab.update(levelData, player);
+            if (crab.isActive())
+                crab.update(levelData, player);
         }
     }
 
@@ -37,10 +39,23 @@ public class EnemyHandler {
 
     private void drawCrabs(Graphics g, int xLevelOffset) {
         for (Crab crab : crabs) {
-            g.drawImage(crabImages[crab.getEnemyState()][crab.getAnimationIndex()],
-                    (int) crab.getHitbox().x - xLevelOffset - CRAB_OFFSET_X + crab.flipx(),
-                    (int) crab.getHitbox().y - CRAB_OFFSET_Y, CRAB_WIDTH * crab.flipw(), CRAB_HEIGHT, null);
-            crab.drawAttackHitbox(g, xLevelOffset);
+            if (crab.isActive()) {
+                g.drawImage(crabImages[crab.getEnemyState()][crab.getAnimationIndex()],
+                        (int) crab.getHitbox().x - xLevelOffset - CRAB_OFFSET_X + crab.flipx(),
+                        (int) crab.getHitbox().y - CRAB_OFFSET_Y, CRAB_WIDTH * crab.flipw(), CRAB_HEIGHT, null);
+                crab.drawAttackHitbox(g, xLevelOffset);
+            }
+        }
+    }
+
+    public void checkEnemyHit(Rectangle2D attackHitbox) {
+        for (Crab crab : crabs) {
+            if (crab.isActive()) {
+                if (crab.getHitbox().intersects(attackHitbox)) {
+                    crab.takeDamage(10);
+                    return;
+                }
+            }
         }
     }
 

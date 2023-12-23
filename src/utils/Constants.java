@@ -39,6 +39,24 @@ public class Constants {
             }
             return 0;
         }
+
+        public static int GetMaxHealth(int enemyType) {
+            switch (enemyType) {
+                case CRAB:
+                    return 10;
+                default:
+                    return 1;
+            }
+        }
+
+        public static int GetDamage(int enemyType) {
+            switch (enemyType) {
+                case CRAB:
+                    return 15;
+                default:
+                    return 0;
+            }
+        }
     }
 
     public static class Environment {

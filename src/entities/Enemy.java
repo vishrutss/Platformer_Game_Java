@@ -17,11 +17,15 @@ public abstract class Enemy extends Entity {
     protected int walkDirection = LEFT;
     protected int tileY;
     protected float attackRange = Game.TILES_SIZE;
+    protected int maxHealth, currenthealth;
+    protected boolean active = true;
 
     public Enemy(float x, float y, int width, int height, int enemyType) {
         super(x, y, width, height);
         this.enemyType = enemyType;
         initHitbox(x, y, width, height);
+        maxHealth = GetMaxHealth(enemyType);
+        currenthealth = maxHealth;
     }
 
     protected void newState(int enemyState) {
@@ -63,8 +67,10 @@ public abstract class Enemy extends Entity {
             animationIndex++;
             if (animationIndex >= GetAssetAmount(enemyType, enemyState)) {
                 animationIndex = 0;
-                if (enemyState == ATTACK) {
-                    enemyState = IDLE;
+
+                switch (enemyState) {
+                    case ATTACK, HURT -> enemyState = IDLE;
+                    case DEAD -> active = false;
                 }
             }
         }
@@ -104,11 +110,24 @@ public abstract class Enemy extends Entity {
         walkDirection = walkDirection == LEFT ? RIGHT : LEFT;
     }
 
+    public void takeDamage(int damage) {
+        currenthealth -= damage;
+        if (currenthealth <= 0) {
+            newState(DEAD);
+        } else {
+            newState(HURT);
+        }
+    }
+
     public int getAnimationIndex() {
         return animationIndex;
     }
 
     public int getEnemyState() {
         return enemyState;
+    }
+
+    public boolean isActive() {
+        return active;
     }
 }
