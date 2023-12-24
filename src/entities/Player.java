@@ -128,6 +128,11 @@ public class Player extends Entity {
 
         if (attacking) {
             playerAction = ATTACK;
+            if(startAnimation != ATTACK) {
+                animationIndex = 1;
+                animationTick = 0;
+                return;
+            }
         }
         if (startAnimation != playerAction) {
             resetAnimation();
