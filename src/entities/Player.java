@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 
+import gamestates.Playing;
 import main.Game;
 import utils.LoadSave;
 
@@ -40,11 +41,14 @@ public class Player extends Entity {
 
     // Attack hitbox
     private Rectangle2D.Float attackHitbox;
+    private boolean attackChecked;
 
     private int flipX = 0, flipW = 1;
+    private Playing playing;
 
-    public Player(float x, float y, int width, int height) {
+    public Player(float x, float y, int width, int height, Playing playing) {
         super(x, y, width, height);
+        this.playing = playing;
         loadAnimations();
         initHitbox(x, y, (int) (20 * Game.SCALE), (int) (28 * Game.SCALE));
         initAttackHitbox();
@@ -58,8 +62,19 @@ public class Player extends Entity {
         updateHealthBar();
         updateAttackHitbox();
         updatePosition();
+        if (attacking) {
+            checkAttack();
+        }
         updateAnimationTick();
         setAnimation();
+    }
+
+    private void checkAttack() {
+        if (attackChecked || animationIndex != 1) {
+            return;
+        }
+        attackChecked = true;
+        playing.checkEnemyHit(attackHitbox);
     }
 
     private void updateAttackHitbox() {
@@ -132,6 +147,7 @@ public class Player extends Entity {
             if (animationIndex >= GetAssetAmount(playerAction)) {
                 animationIndex = 0;
                 attacking = false;
+                attackChecked = false;
             }
         }
     }

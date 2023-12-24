@@ -3,6 +3,7 @@ package entities;
 import static utils.Constants.Enemy.*;
 import static utils.HelperMethods.*;
 import static utils.Constants.Directions.*;
+import java.awt.geom.Rectangle2D;
 
 import main.Game;
 
@@ -19,6 +20,7 @@ public abstract class Enemy extends Entity {
     protected float attackRange = Game.TILES_SIZE;
     protected int maxHealth, currenthealth;
     protected boolean active = true;
+    protected boolean attackChecked;
 
     public Enemy(float x, float y, int width, int height, int enemyType) {
         super(x, y, width, height);
@@ -40,6 +42,13 @@ public abstract class Enemy extends Entity {
             return true;
         }
         return false;
+    }
+
+    protected void checkPlayerHit(Player player, Rectangle2D.Float attackHitbox) {
+        if (attackHitbox.intersects(player.getHitbox())) {
+            player.changeHealth(-GetDamage(enemyType));
+        }
+        attackChecked = true;
     }
 
     protected void turnToPlayer(Player player) {

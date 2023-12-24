@@ -26,7 +26,7 @@ public class Crab extends Enemy {
     }
 
     public void update(int[][] levelData, Player player) {
-        updateMove(levelData, player);
+        updateBehaviour(levelData, player);
         updateAnimationTick();
         updateAttackHitbox();
     }
@@ -36,7 +36,7 @@ public class Crab extends Enemy {
         attackHitbox.y = hitbox.y;
     }
 
-    private void updateMove(int[][] levelData, Player player) {
+    private void updateBehaviour(int[][] levelData, Player player) {
         if (firstUpdate) {
             firstUpdateCheck(levelData);
         }
@@ -53,6 +53,16 @@ public class Crab extends Enemy {
                     if (isPlayerInAttackRange(player))
                         newState(ATTACK);
                     movePlayer(levelData);
+                    break;
+                case ATTACK:
+                    if (animationIndex == 0) {
+                        attackChecked = false;
+                    }
+                    if (animationIndex == 3 && !attackChecked) {
+                        checkPlayerHit(player, attackHitbox);
+                    }
+                    break;
+                case HURT:
                     break;
             }
         }

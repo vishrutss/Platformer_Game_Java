@@ -6,6 +6,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.util.Random;
+import java.awt.geom.Rectangle2D;
 
 import entities.EnemyHandler;
 import entities.Player;
@@ -45,7 +46,7 @@ public class Playing extends State implements StateMethods {
     private void initClasses() {
         levelHandler = new LevelHandler(game);
         enemyHandler = new EnemyHandler(this);
-        player = new Player(100, 350, (int) (64 * Game.SCALE), (int) (40 * Game.SCALE));
+        player = new Player(100, 350, (int) (64 * Game.SCALE), (int) (40 * Game.SCALE), this);
         player.loadLevelData(levelHandler.getCurrentLevel().getLevelData());
         pauseOverlay = new PauseOverlay(this);
     }
@@ -106,6 +107,10 @@ public class Playing extends State implements StateMethods {
 
     public void resetAll() {
         //initClasses();
+    }
+
+    public void checkEnemyHit(Rectangle2D attackHitbox) {
+        enemyHandler.checkEnemyHit(attackHitbox);
     }
 
     @Override
