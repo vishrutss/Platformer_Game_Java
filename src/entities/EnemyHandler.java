@@ -43,7 +43,7 @@ public class EnemyHandler {
                 g.drawImage(crabImages[crab.getEnemyState()][crab.getAnimationIndex()],
                         (int) crab.getHitbox().x - xLevelOffset - CRAB_OFFSET_X + crab.flipx(),
                         (int) crab.getHitbox().y - CRAB_OFFSET_Y, CRAB_WIDTH * crab.flipw(), CRAB_HEIGHT, null);
-                crab.drawAttackHitbox(g, xLevelOffset);
+                //crab.drawAttackHitbox(g, xLevelOffset);
             }
         }
     }
