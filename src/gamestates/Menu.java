@@ -61,7 +61,6 @@ public class Menu extends State implements StateMethods {
         for (MenuButton button : menuButtons) {
             if (isInBounds(e, button)) {
                 button.setMousePressed(true);
-                break;
             }
         }
     }

@@ -17,11 +17,11 @@ public class KeyboardInputs implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         switch (GameState.currentState) {
-            case PLAYING:
-                panel.getGame().getPlaying().keyPressed(e);
-                break;
             case MENU:
                 panel.getGame().getMenu().keyPressed(e);
+                break;
+            case PLAYING:
+                panel.getGame().getPlaying().keyPressed(e);
                 break;
             default:
                 break;
@@ -31,11 +31,11 @@ public class KeyboardInputs implements KeyListener {
     @Override
     public void keyReleased(KeyEvent e) {
         switch (GameState.currentState) {
-            case PLAYING:
-                panel.getGame().getPlaying().keyReleased(e);
-                break;
             case MENU:
                 panel.getGame().getMenu().keyReleased(e);
+                break;
+            case PLAYING:
+                panel.getGame().getPlaying().keyReleased(e);
                 break;
             default:
                 break;
