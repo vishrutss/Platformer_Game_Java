@@ -128,6 +128,16 @@ public abstract class Enemy extends Entity {
         }
     }
 
+    public void reset() {
+        hitbox.x = x;
+        hitbox.y = y;
+        firstUpdate = true;
+        active = true;
+        currenthealth = maxHealth;
+        newState(IDLE);
+        fallSpeed = 0;
+    }
+
     public int getAnimationIndex() {
         return animationIndex;
     }

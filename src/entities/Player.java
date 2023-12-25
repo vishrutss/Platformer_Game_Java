@@ -60,6 +60,10 @@ public class Player extends Entity {
 
     public void update() {
         updateHealthBar();
+        if (currentHealth <= 0) {
+            playing.setGameOver(true);
+            return;
+        }
         updateAttackHitbox();
         updatePosition();
         if (attacking) {
@@ -128,7 +132,7 @@ public class Player extends Entity {
 
         if (attacking) {
             playerAction = ATTACK;
-            if(startAnimation != ATTACK) {
+            if (startAnimation != ATTACK) {
                 animationIndex = 1;
                 animationTick = 0;
                 return;
@@ -304,6 +308,20 @@ public class Player extends Entity {
 
     public void setDown(boolean down) {
         this.down = down;
+    }
+
+    public void resetAll() {
+        resetDirectionBooleans();
+        inAir = false;
+        attacking = false;
+        moving = false;
+        playerAction = IDLE;
+        currentHealth = maxHealth;
+        hitbox.x = x;
+        hitbox.y = y;
+        if (!IsEntitiyOnGround(hitbox, levelData)) {
+            inAir = true;
+        }
     }
 
 }

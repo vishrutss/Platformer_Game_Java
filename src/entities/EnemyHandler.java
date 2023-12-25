@@ -69,4 +69,10 @@ public class EnemyHandler {
             }
         }
     }
+
+    public void resetAllEnemies() {
+        for (Crab crab : crabs) {
+            crab.reset();
+        }
+    }
 }
