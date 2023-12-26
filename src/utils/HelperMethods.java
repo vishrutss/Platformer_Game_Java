@@ -75,7 +75,10 @@ public class HelperMethods {
     }
 
     public static boolean IsFloor(Rectangle2D.Float hitbox, float xSpeed, int[][] levelData) {
-        return IsSolid(hitbox.x + xSpeed, hitbox.y + hitbox.height + 1, levelData);
+        if (xSpeed > 0)
+            return IsSolid(hitbox.x + hitbox.width + xSpeed, hitbox.y + hitbox.height + 1, levelData);
+        else
+            return IsSolid(hitbox.x + xSpeed, hitbox.y + hitbox.height + 1, levelData);
     }
 
     public static boolean isTileWalkable(int xStart, int xEnd, int y, int[][] levelData) {
@@ -83,7 +86,7 @@ public class HelperMethods {
             if (IsTileSolid(xStart + i, y, levelData)) {
                 return false;
             }
-            if(!IsTileSolid(xStart + i, y + 1, levelData)) {
+            if (!IsTileSolid(xStart + i, y + 1, levelData)) {
                 return false;
             }
         }

@@ -124,8 +124,8 @@ public class PauseOverlay {
             }
         } else if (isIn(e, restartButton)) {
             if (restartButton.isMousePressed()) {
-                // TODO: Restart level
-                System.out.println("Restart Level");
+                playing.resetAll();
+                playing.unPauseGame();
             }
         } else if (isIn(e, mainMenuButton)) {
             if (mainMenuButton.isMousePressed()) {
